@@ -17,15 +17,12 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: "26"
-                  
-            - name: Change directory
-              run: cd pokemon-app && ls
 
             - name: Install dependencies
-              run: ls && npm install
+              run: cd pokemon-app && npm install
 
             - name: Build
-              run: npm run build
+              run: cd pokemon-app && npm run build
 
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
