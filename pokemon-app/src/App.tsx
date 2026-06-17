@@ -4,43 +4,36 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 
-function UselessButton() {
-    return (
-        <button>
-            This button does nothing
-        </button>
-    )
-}
-
-function pokemonFetcher(dataSetter: CallableFunction, number: number){
+function pokemonFetcher(dataSetter: CallableFunction, number: number) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${number}/`)
         .then(response => response.json())
         .then(data => dataSetter(data));
 }
 
-function PokemonForNumber({count} :{count: number}) {
-    const [pokemonData, setPokemonData] = useState({name: undefined, sprites:{front_default: ""}});
+function PokemonForNumber({count}: { count: number }) {
+    const [pokemonData, setPokemonData] = useState({name: undefined, sprites: {front_default: ""}});
     pokemonFetcher(setPokemonData, count)
 
-    return (
-        <div>
-            {pokemonData && (
+    return (pokemonData.name ?
+            <div>
                 <div>
                     <h1>{pokemonData.name}</h1>
                     <img
                         className="avatar"
                         src={pokemonData.sprites.front_default}
-                        alt={pokemonData.name ? 'Photo of ' + pokemonData.name: ""}
+                        alt={pokemonData.name ? 'Photo of ' + pokemonData.name : ""}
                         style={{
                             width: 90,
                             height: 90
                         }}
                     />
                 </div>
-            )}
-        </div>
+
+            </div> :
+            <div></div>
     );
 }
+
 function App() {
     const [count, setCount] = useState(0)
 
@@ -66,10 +59,6 @@ function App() {
                     Click button to increment this integer and pokemon: {count}
                 </button>
                 <PokemonForNumber count={count}/>
-            </section>
-
-            <section>
-                <UselessButton/>
             </section>
 
             <section id="spacer"></section>
