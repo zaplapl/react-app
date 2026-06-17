@@ -19,7 +19,7 @@ function pokemonFetcher(dataSetter: CallableFunction, number: number){
 }
 
 function PokemonForNumber({count} :{count: number}) {
-    const [pokemonData, setPokemonData] = useState(null);
+    const [pokemonData, setPokemonData] = useState({name: undefined, sprites:{front_default: ""}});
     pokemonFetcher(setPokemonData, count)
 
     return (
@@ -30,7 +30,7 @@ function PokemonForNumber({count} :{count: number}) {
                     <img
                         className="avatar"
                         src={pokemonData.sprites.front_default}
-                        alt={'Photo of ' + pokemonData.name}
+                        alt={pokemonData.name ? 'Photo of ' + pokemonData.name: ""}
                         style={{
                             width: 90,
                             height: 90
